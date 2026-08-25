@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control & Administración | SUMAK IT</title>
+  <meta name="description" content="Panel administrativo central de SUMAK IT: Dashboard, Catálogo, Inventario, Clientes, Pedidos, Ventas, Reportes, Usuarios y Base de Datos PostgreSQL.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00C2FF',
+              blue: '#0066FF',
+              dark: '#0F172A',
+              light: '#FAFCFF'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- SheetJS CDN for Real Excel (.xlsx) Export -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+</head>
+<body class="bg-tech-animated text-slate-800 antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- ======================================================== -->
+  <!-- 1. ADMIN LOGIN VIEW -->
+  <!-- ======================================================== -->
+  <div id="admin-login-view" class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-2xl space-y-6 modal-enter">
+      
+      <div class="text-center space-y-2">
+        <img src="assets/logo.jpg" alt="SUMAK IT Logo" class="h-16 w-auto mx-auto object-contain">
+        <div>
+          <h2 class="text-2xl font-black text-slate-900">SUMAK IT</h2>
+          <span class="text-xs font-bold text-blue-600">Tu aliado tecnológico, pensando en ti.</span>
+        </div>
+        <p class="text-xs text-slate-500 pt-1">Ingresa tus credenciales para acceder al Panel de Control Central</p>
+      </div>
+
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Usuario Administrador *</label>
+          <input type="text" id="admin-user" required placeholder="admin o tu usuario creado" class="w-full bg-slate-50 text-sm text-slate-800 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:border-blue-600 focus:bg-white font-medium">
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block text-xs font-bold text-slate-700">Contraseña de Acceso *</label>
+            <button type="button" id="btn-open-admin-recovery" class="text-xs text-blue-600 hover:underline font-semibold">¿Olvidaste tu contraseña?</button>
+          </div>
+          <div class="relative">
+            <input type="password" id="admin-pass" required placeholder="••••••••" class="w-full bg-slate-50 text-sm text-slate-800 pl-4 pr-10 py-3 rounded-xl border border-slate-200 outline-none focus:border-blue-600 focus:bg-white font-medium">
+            <button type="button" id="toggle-admin-pass-btn" class="absolute right-3 top-3 text-slate-400 hover:text-slate-700 text-xs font-bold" title="Mostrar/Ocultar contraseña">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-blue-50 border border-blue-200 text-[11px] text-blue-800 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span>💡 <strong>Acceso por Defecto:</strong> admin / 123456</span>
+            <button type="button" id="btn-autofill-admin" class="text-[10px] bg-blue-600 hover:bg-blue-700 text-white font-bold px-2 py-0.5 rounded transition">
+              Rellenar
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-lg shadow-blue-600/25">
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <div class="text-center pt-2 border-t border-slate-100">
+        <a href="index.html" class="text-xs text-slate-500 hover:text-blue-600 font-semibold transition">
+          ← Volver a la Tienda Online
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. ADMIN DASHBOARD & WORKSPACE VIEW -->
+  <!-- ======================================================== -->
+  <div id="admin-dashboard-view" class="hidden flex-1 flex flex-col">
+    
+    <!-- Admin Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20 gap-4">
+          
+          <!-- Brand Logo & Badge -->
+          <div class="flex items-center gap-3.5">
+            <img src="assets/logo.jpg" alt="SUMAK IT Logo" class="h-12 w-auto object-contain">
+            <div>
+              <div class="text-base font-black tracking-tight text-slate-900 flex items-center gap-1.5">
+                <span>SUMAK IT</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-blue-100 text-blue-800">Panel Central</span>
+              </div>
+              <p class="text-xs text-slate-500 font-medium">Guaranda, Bolívar, Ecuador</p>
+            </div>
+          </div>
+
+          <!-- User Info & Action Buttons -->
+          <div class="flex items-center gap-3">
+            <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">
+              <span>👤 Sesión:</span>
+              <strong id="admin-current-user-tag" class="text-blue-600 font-bold">admin</strong>
+            </div>
+
+            <button id="open-change-pass-btn" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5" title="Cambiar Contraseña">
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+              <span class="hidden sm:inline">Mi Clave</span>
+            </button>
+
+            <a href="index.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs transition border border-blue-200">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <span>Ver Tienda</span>
+            </a>
+
+            <button id="admin-logout-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-xs transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+              <span class="hidden sm:inline">Cerrar Sesión</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      
+      <!-- Stats Banner (5 Métricas Principales) -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
+        
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">📦</div>
+          <div>
+            <span class="text-xs text-slate-400 font-bold block">Artículos</span>
+            <span id="stat-total-products" class="text-xl font-black text-slate-900">0</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">🛒</div>
+          <div>
+            <span class="text-xs text-slate-400 font-bold block">Pedidos</span>
+            <span id="stat-total-orders" class="text-xl font-black text-emerald-600">0</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-emerald-200 bg-emerald-50/50 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">💵</div>
+          <div>
+            <span class="text-xs text-emerald-800 font-bold block">Total Ventas</span>
+            <span id="stat-total-revenue" class="text-lg font-black text-emerald-800">$0.00</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-purple-200 bg-purple-50/50 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg">🏷️</div>
+          <div>
+            <span class="text-xs text-purple-800 font-bold block">Categorías</span>
+            <span id="stat-total-categories" class="text-xl font-black text-purple-800">0</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-cyan-200 bg-cyan-50/50 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center font-bold text-lg">👥</div>
+          <div>
+            <span class="text-xs text-cyan-800 font-bold block">Clientes</span>
+            <span id="stat-total-users" class="text-xl font-black text-cyan-800">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Módulos de la Estructura Solicitada) -->
+      <div class="flex items-center gap-2 p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm w-full sm:w-auto overflow-x-auto no-scrollbar">
+        <button id="nav-tab-dashboard" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs transition whitespace-nowrap shadow-md">
+          📊 Dashboard
+        </button>
+        <button id="nav-tab-products" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap">
+          📦 Productos
+        </button>
+        <button id="nav-tab-categories" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap">
+          🏷️ Categorías
+        </button>
+        <button id="nav-tab-inventory" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap flex items-center gap-1">
+          <span>📋 Inventario</span>
+          <span class="px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">Excel</span>
+        </button>
+        <button id="nav-tab-orders" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap flex items-center gap-1.5">
+          <span>🛒 Pedidos & Facturas</span>
+        </button>
+        <button id="nav-tab-sales" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap">
+          📈 Ventas & Reportes
+        </button>
+        <button id="nav-tab-users" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap">
+          👥 Clientes, Usuarios & Roles
+        </button>
+        <button id="nav-tab-coupons" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap">
+          🎟️ Cupones
+        </button>
+        <button id="nav-tab-database" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition whitespace-nowrap flex items-center gap-1.5">
+          <span>🗄️ PostgreSQL DB</span>
+        </button>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 1: DASHBOARD GENERAL -->
+      <!-- ======================================================== -->
+      <div id="tab-view-dashboard" class="space-y-6">
+        
+        <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 p-6 sm:p-8 rounded-3xl text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🚀</span>
+              <h3 class="text-xl sm:text-2xl font-black">Panel de Control General | SUMAK IT</h3>
+            </div>
+            <p class="text-xs text-blue-200 max-w-xl leading-relaxed">
+              Bienvenido al sistema administrativo de Mario Dario Rea Tamami (RUC: 020246352007). Monitorea tus ventas, inventario y facturación oficial en tiempo real.
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <button onclick="switchAdminTab('products')" class="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md">
+              + Cargar Producto
+            </button>
+            <button onclick="switchAdminTab('orders')" class="px-4 py-3 rounded-xl bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs transition shadow-md">
+              Ver Pedidos
+            </button>
+          </div>
+        </div>
+
+        <!-- Dashboard Highlights Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Recent Orders Summary -->
+          <div class="md:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-black text-slate-900">Últimos Pedidos Registrados</h4>
+              <button onclick="switchAdminTab('orders')" class="text-xs text-blue-600 font-bold hover:underline">Ver todos →</button>
+            </div>
+            <div id="dashboard-recent-orders" class="space-y-3">
+              <!-- Renderizado dinámicamente -->
+            </div>
+          </div>
+
+          <!-- Inventory Alerts -->
+          <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+              <span>⚠️</span>
+              <span>Alertas de Stock en Guaranda</span>
+            </h4>
+            <div id="dashboard-stock-alerts" class="space-y-2 text-xs">
+              <!-- Renderizado dinámicamente -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 2: PRODUCTOS (CÁLCULO DE PRECIOS & MULTI-FOTO CTRL+V) -->
+      <!-- ======================================================== -->
+      <div id="tab-view-products" class="hidden grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Upload Form (5 Cols) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-lg space-y-6">
+          
+          <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+            <div>
+              <h3 id="form-title" class="text-lg font-black text-slate-900">Cargar Nuevo Artículo</h3>
+              <p class="text-xs text-slate-500">Cálculo de precio automático y soporte para pegar fotos</p>
+            </div>
+            <button id="cancel-edit-btn" class="hidden px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold transition">
+              Cancelar
+            </button>
+          </div>
+
+          <form id="product-form" class="space-y-4">
+            
+            <!-- Name -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nombre del Artículo *</label>
+              <input type="text" id="p-name" required placeholder="Ej. Laptop Asus TUF Gaming A15" class="w-full bg-slate-50 text-sm text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 focus:bg-white transition">
+            </div>
+
+            <!-- Category & Stock -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Categoría *</label>
+                <select id="p-category" required class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-medium">
+                  <!-- Llenado dinámicamente -->
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Stock en Guaranda *</label>
+                <input type="number" id="p-stock" required min="1" value="5" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+              </div>
+            </div>
+
+            <!-- MOTOR DE CÁLCULO DE PRECIO EN TIEMPO REAL -->
+            <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-blue-900 uppercase tracking-wider">💰 Cálculo Automático de Precio</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-200 text-blue-800">IVA 15% + $5 Envío</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-700 mb-1">Valor Distribuidor ($ USD) *</label>
+                  <input type="number" id="p-distributor-price" step="0.01" required placeholder="500.00" class="w-full bg-white text-xs text-slate-900 px-3 py-2 rounded-xl border border-blue-300 outline-none focus:ring-2 focus:ring-blue-500 font-bold">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-700 mb-1">Margen de Ganancia ($ USD) *</label>
+                  <input type="number" id="p-profit-margin" step="0.01" required placeholder="50.00" value="30.00" class="w-full bg-white text-xs text-slate-900 px-3 py-2 rounded-xl border border-blue-300 outline-none focus:ring-2 focus:ring-blue-500 font-bold">
+                </div>
+              </div>
+
+              <!-- Desglose de la Fórmula -->
+              <div class="p-3 rounded-xl bg-white border border-blue-100 text-xs space-y-1.5">
+                <div class="flex justify-between text-slate-600 text-[11px]">
+                  <span>+ IVA (15% sobre distribuidor):</span>
+                  <span id="calc-iva-val" class="font-bold text-slate-800">$0.00 USD</span>
+                </div>
+                <div class="flex justify-between text-slate-600 text-[11px]">
+                  <span>+ Costo de Envío / Flete:</span>
+                  <span class="font-bold text-slate-800">$5.00 USD</span>
+                </div>
+                <div class="flex justify-between text-slate-600 text-[11px]">
+                  <span>+ Ganancia deseada:</span>
+                  <span id="calc-profit-val" class="font-bold text-emerald-600">$30.00 USD</span>
+                </div>
+                <div class="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-200">
+                  <span>PRECIO FINAL DE VENTA:</span>
+                  <span id="calc-total-final" class="text-blue-600 font-black">$35.00 USD</span>
+                </div>
+              </div>
+
+              <input type="hidden" id="p-price" value="35.00">
+            </div>
+
+            <!-- Badge & Color -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Etiqueta Promocional</label>
+                <input type="text" id="p-badge" placeholder="Más Vendido / Oferta" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Color Etiqueta</label>
+                <select id="p-badge-color" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+                  <option value="bg-blue-600">Azul Rey</option>
+                  <option value="bg-cyan-600">Cian Tecnológico</option>
+                  <option value="bg-emerald-600">Verde Esmeralda (Oferta)</option>
+                  <option value="bg-amber-500">Ámbar (Top)</option>
+                  <option value="bg-rose-600">Rojo Gamer</option>
+                  <option value="bg-purple-600">Púrpura</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Featured in Slider -->
+            <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 flex items-center gap-2">
+              <input type="checkbox" id="p-featured" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+              <label for="p-featured" class="text-xs font-bold text-amber-900 cursor-pointer">
+                ⭐ Mostrar en el Slider de Productos Destacados (Inicio)
+              </label>
+            </div>
+
+            <!-- Multi-Photo Upload & Clipboard Paste Zone -->
+            <div class="space-y-2 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-bold text-slate-800">
+                  📸 Fotos del Producto (Selecciona o Pega con Ctrl+V):
+                </label>
+                <span class="text-[10px] text-blue-600 font-bold">¡Pega con Ctrl+V!</span>
+              </div>
+              
+              <!-- Drop & Paste Target -->
+              <div id="image-drop-paste-zone" class="drop-paste-zone p-4 rounded-xl text-center bg-white cursor-pointer hover:bg-blue-50/50 transition">
+                <svg class="w-7 h-7 text-blue-500 mx-auto mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <p class="text-xs font-bold text-slate-700">Haz clic para buscar fotos o presiona <span class="text-blue-600">Ctrl + V</span></p>
+                <p class="text-[10px] text-slate-400 mt-0.5">Puedes pegar capturas o imágenes copiadas de internet</p>
+                <input type="file" id="p-images-file" multiple accept="image/*" class="hidden">
+              </div>
+
+              <!-- URL Input Alternative -->
+              <div class="flex items-center gap-2 pt-1">
+                <input type="url" id="p-image-url" placeholder="O pega un enlace URL de foto..." class="flex-1 bg-white text-xs text-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+                <button type="button" id="btn-add-url-photo" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-xs font-bold text-slate-700 transition">
+                  + URL
+                </button>
+              </div>
+
+              <!-- Uploaded photos preview strip -->
+              <div id="uploaded-photos-preview" class="hidden flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar">
+                <!-- Miniaturas cargadas -->
+              </div>
+            </div>
+
+            <!-- Short Description -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Descripción Corta</label>
+              <textarea id="p-short-desc" rows="2" placeholder="Resumen para la tarjeta en la tienda..." class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600"></textarea>
+            </div>
+
+            <!-- Specs -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Especificaciones Técnicas (1 por línea)</label>
+              <textarea id="p-specs" rows="3" placeholder="Procesador: AMD Ryzen 7&#10;Memoria RAM: 16 GB DDR5&#10;Almacenamiento: 512 GB SSD NVMe&#10;Garantía: 1 Año oficial" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono"></textarea>
+            </div>
+
+            <div class="pt-2 flex gap-3">
+              <button type="submit" class="flex-1 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Guardar Producto</span>
+              </button>
+              <button type="reset" onclick="cancelEdit()" class="px-4 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+                Limpiar
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- Right: Inventory Catalog List (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <div>
+                <h3 class="text-lg font-black text-slate-900">Catálogo de Productos</h3>
+                <p class="text-xs text-slate-500">Edita, elimina o destaca artículos en el slider</p>
+              </div>
+            </div>
+
+            <!-- Search & Filter -->
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-2 border-t border-slate-100">
+              <div class="sm:col-span-7 relative">
+                <input type="text" id="admin-search-input" placeholder="Buscar por nombre o descripción..." class="w-full bg-slate-50 text-xs text-slate-800 pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+                <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <div class="sm:col-span-5">
+                <select id="admin-filter-category" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-medium">
+                  <!-- Llenado dinámicamente -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="admin-products-list" class="space-y-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 3: CATEGORÍAS -->
+      <!-- ======================================================== -->
+      <div id="tab-view-categories" class="hidden grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Add Category Form -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-lg space-y-4">
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Crear Nueva Categoría</h3>
+            <p class="text-xs text-slate-500">Se añadirá automáticamente a los filtros de la tienda</p>
+          </div>
+
+          <form id="new-category-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nombre de la Categoría *</label>
+              <input type="text" id="cat-name" required placeholder="Ej. Tablets, Consolas, Audio" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Ícono o Emoji</label>
+              <input type="text" id="cat-icon" placeholder="Ej. 📱, 🎮, 🔊, 💻" value="📦" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md shadow-blue-600/20 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Guardar Categoría</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Categories List -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-black text-slate-900">Categorías Disponibles</h3>
+            <p class="text-xs text-slate-500">Familias de artículos activas en SUMAK IT</p>
+          </div>
+
+          <div id="admin-categories-list" class="space-y-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 4: INVENTARIO & EXPORTACIÓN EXCEL (.xlsx) -->
+      <!-- ======================================================== -->
+      <div id="tab-view-inventory" class="hidden space-y-6">
+        
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Control de Inventario & Stock</h3>
+            <p class="text-xs text-slate-500">Supervisa existencias físicas en Guaranda y exporta a Excel</p>
+          </div>
+
+          <button id="btn-export-excel" class="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
+            <span>Descargar Reporte Excel (.xlsx)</span>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold uppercase text-[10px]">
+                  <th class="py-3 px-4">Código</th>
+                  <th class="py-3 px-4">Artículo</th>
+                  <th class="py-3 px-4">Categoría</th>
+                  <th class="py-3 px-4 text-right">Distribuidor</th>
+                  <th class="py-3 px-4 text-right">IVA 15%</th>
+                  <th class="py-3 px-4 text-right">Ganancia</th>
+                  <th class="py-3 px-4 text-right">P. Venta</th>
+                  <th class="py-3 px-4 text-center">Stock</th>
+                  <th class="py-3 px-4 text-center">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table-body" class="divide-y divide-slate-100">
+                <!-- Renderizado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 5: PEDIDOS & FACTURACIÓN -->
+      <!-- ======================================================== -->
+      <div id="tab-view-orders" class="hidden space-y-6">
+        
+        <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex justify-between items-center">
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Compras y Facturación de Clientes</h3>
+            <p class="text-xs text-slate-500">Revisa comprobantes de Banco Pichincha 2200807883 y genera facturas PDF</p>
+          </div>
+        </div>
+
+        <div id="admin-orders-list" class="space-y-4">
+          <!-- Renderizado dinámicamente -->
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 6: VENTAS & REPORTES -->
+      <!-- ======================================================== -->
+      <div id="tab-view-sales" class="hidden space-y-6">
+        
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-lg font-black text-slate-900">Reportes Financieros y Métricas de Ventas</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200">
+              <span class="text-xs font-bold text-blue-700 block">Total Facturado</span>
+              <span id="sales-total-amount" class="text-2xl font-black text-blue-900 mt-1 block">$0.00</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200">
+              <span class="text-xs font-bold text-emerald-700 block">Órdenes Entregadas</span>
+              <span id="sales-delivered-count" class="text-2xl font-black text-emerald-900 mt-1 block">0</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200">
+              <span class="text-xs font-bold text-amber-700 block">Ticket Promedio</span>
+              <span id="sales-average-ticket" class="text-2xl font-black text-amber-900 mt-1 block">$0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales by category breakdown -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <h4 class="text-sm font-black text-slate-900">Distribución de Artículos por Categoría</h4>
+          <div id="sales-category-distribution" class="space-y-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 7: CLIENTES, USUARIOS Y ROLES (ADMIN + CLIENTES) -->
+      <!-- ======================================================== -->
+      <div id="tab-view-users" class="hidden space-y-8">
+        
+        <!-- SECTION 1: ADMINISTRADORES & ROLES -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🛡️</span>
+                <h3 class="text-lg font-black text-slate-900">Administradores del Sistema & Roles</h3>
+              </div>
+              <p class="text-xs text-slate-500">Edita datos, asigna roles, inactiva o elimina cuentas administrativas</p>
+            </div>
+            
+            <button id="btn-show-add-admin-form" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-md shadow-blue-600/20">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>+ Nuevo Administrador</span>
+            </button>
+          </div>
+
+          <!-- Add Admin Form -->
+          <form id="add-admin-form" class="hidden p-5 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-3">
+            <h4 class="text-xs font-black text-blue-900 uppercase">Crear Cuenta de Administrador</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Nombre Completo</label>
+                <input type="text" id="new-adm-name" required placeholder="Ej. Juan Pérez" class="w-full bg-white text-xs text-slate-800 px-3 py-2 rounded-xl border border-blue-200 outline-none focus:border-blue-600">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Usuario de Acceso</label>
+                <input type="text" id="new-adm-user" required placeholder="juanadmin" class="w-full bg-white text-xs text-slate-800 px-3 py-2 rounded-xl border border-blue-200 outline-none focus:border-blue-600">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Contraseña (Mín 6)</label>
+                <input type="password" id="new-adm-pass" required minlength="6" placeholder="••••••••" class="w-full bg-white text-xs text-slate-800 px-3 py-2 rounded-xl border border-blue-200 outline-none focus:border-blue-600">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Rol / Cargo</label>
+                <select id="new-adm-role" class="w-full bg-white text-xs text-slate-800 px-3 py-2 rounded-xl border border-blue-200 outline-none focus:border-blue-600">
+                  <option value="Administrador">Administrador</option>
+                  <option value="Vendedor / Facturación">Vendedor / Facturación</option>
+                  <option value="Soporte Técnico">Soporte Técnico</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+              <button type="button" id="btn-cancel-add-admin" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-600 text-xs font-bold border border-slate-200">Cancelar</button>
+              <button type="submit" class="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow">Guardar Administrador</button>
+            </div>
+          </form>
+
+          <!-- Admins List -->
+          <div id="admins-list-container" class="space-y-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+        <!-- SECTION 2: CLIENTES REGISTRADOS EN LA TIENDA -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🛒</span>
+                <h3 class="text-lg font-black text-slate-900">Clientes Registrados en la Tienda</h3>
+              </div>
+              <p class="text-xs text-slate-500">Edita datos, inactiva cuentas, restablece claves o elimina clientes</p>
+            </div>
+
+            <!-- Client Search -->
+            <div class="w-full sm:w-72 relative">
+              <input type="text" id="client-search-input" placeholder="Buscar por nombre, correo o teléfono..." class="w-full bg-slate-50 text-xs text-slate-800 pl-8 pr-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
+
+          <!-- Clients List -->
+          <div id="clients-list-container" class="space-y-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 8: CUPONES DE DESCUENTO -->
+      <!-- ======================================================== -->
+      <div id="tab-view-coupons" class="hidden grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Add Coupon Form -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-lg space-y-4">
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Crear Cupón de Descuento</h3>
+            <p class="text-xs text-slate-500">Asigna cupones para aplicar en el carrito y checkout</p>
+          </div>
+
+          <form id="new-coupon-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Código del Cupón *</label>
+              <input type="text" id="coupon-code" required placeholder="Ej. SUMAKIT, PROMO5, VERANO" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono uppercase">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Tipo de Descuento</label>
+                <select id="coupon-type" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-medium">
+                  <option value="percent">Porcentaje (%)</option>
+                  <option value="fixed">Monto Fijo ($ USD)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Valor del Descuento *</label>
+                <input type="number" id="coupon-value" required min="1" step="0.01" placeholder="10" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-bold">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Compra Mínima Requerida ($ USD)</label>
+              <input type="number" id="coupon-min-purchase" min="0" step="0.01" placeholder="0.00" value="0" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md shadow-blue-600/20 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Crear Cupón</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Coupons List -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+            <h3 class="text-lg font-black text-slate-900">Cupones Activos</h3>
+            <p class="text-xs text-slate-500">Cupones listos para que los clientes los usen al pagar</p>
+          </div>
+
+          <div id="admin-coupons-list" class="space-y-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 9: BASE DE DATOS POSTGRESQL & RESPALDO -->
+      <!-- ======================================================== -->
+      <div id="tab-view-database" class="hidden space-y-8">
+        
+        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-cyan-700 p-6 sm:p-8 rounded-3xl text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🐘</span>
+              <h3 class="text-xl sm:text-2xl font-black">Base de Datos PostgreSQL | SUMAK IT</h3>
+            </div>
+            <p class="text-xs text-blue-100 max-w-xl leading-relaxed">
+              Esquema relacional en PostgreSQL oficial de Mario Dario Rea Tamami (RUC: 020246352007). Compatible con Supabase, Neon, Cloudflare y servidores dedicados.
+            </p>
+          </div>
+
+          <!-- Download Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+            <button id="btn-download-pg-db" class="px-5 py-3.5 rounded-2xl bg-white text-blue-800 hover:bg-blue-50 font-black text-xs transition shadow-lg flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Descargar Script PostgreSQL (.sql)</span>
+            </button>
+            <button id="btn-download-json-db" class="px-5 py-3.5 rounded-2xl bg-blue-950/60 hover:bg-blue-950 text-white border border-white/30 font-black text-xs transition shadow-lg flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Descargar Respaldo JSON (.json)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Database Metrics Table & Restore Tool -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="md:col-span-2 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+              <span>📊</span>
+              <span>Estructura de Tablas PostgreSQL</span>
+            </h4>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-200 text-slate-400 font-bold uppercase text-[10px]">
+                    <th class="py-2.5">Tabla PostgreSQL</th>
+                    <th class="py-2.5">Propósito</th>
+                    <th class="py-2.5 text-center">Registros</th>
+                    <th class="py-2.5 text-right">Estado</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100" id="db-tables-metrics-body">
+                  <!-- Renderizado dinámicamente -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Restore Box -->
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+            <div>
+              <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📤</span>
+                <span>Restaurar Base de Datos</span>
+              </h4>
+              <p class="text-xs text-slate-500 mt-1">Carga un archivo de respaldo JSON generado previamente para sincronizar la información.</p>
+              
+              <div class="mt-4 p-4 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-300 text-center cursor-pointer hover:bg-blue-50/50 transition" onclick="document.getElementById('db-restore-file').click()">
+                <svg class="w-8 h-8 text-blue-500 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <span class="text-xs font-bold text-slate-700 block">Seleccionar archivo JSON</span>
+                <span class="text-[10px] text-slate-400">sumak_it_database.json</span>
+                <input type="file" id="db-restore-file" accept=".json" class="hidden">
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-[11px] text-amber-800">
+              ⚠️ <strong>Nota:</strong> Al restaurar un respaldo, se actualizarán los productos, clientes, pedidos y cupones con los datos del archivo.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: RECUPERACIÓN DE CONTRASEÑA DE ADMINISTRADOR -->
+  <!-- ======================================================== -->
+  <div id="admin-recovery-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="admin-recovery-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-4 modal-enter">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🔑</span>
+          <h4 class="text-sm font-black text-slate-900">Recuperar Acceso Administrativo</h4>
+        </div>
+        <button id="close-admin-recovery-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500">Ingresa tu usuario y el correo autorizado de Mario Dario Rea Tamami (<code class="font-bold text-slate-800">readario94@gmail.com</code>) para reasignar tu clave.</p>
+
+      <form id="admin-recovery-form" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Usuario de Administrador *</label>
+          <input type="text" id="rec-admin-user" required placeholder="admin o tu usuario" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Correo Autorizado de Recuperación *</label>
+          <input type="email" id="rec-admin-email" required placeholder="readario94@gmail.com" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nueva Contraseña (Mín. 6 caracteres) *</label>
+          <input type="password" id="rec-admin-new-pass" required minlength="6" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Confirmar Nueva Contraseña *</label>
+          <input type="password" id="rec-admin-conf-pass" required minlength="6" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" id="btn-cancel-admin-recovery" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+            Cancelar
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md">
+            Restablecer Clave
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: EDITAR DATOS DE ADMINISTRADOR -->
+  <!-- ======================================================== -->
+  <div id="admin-edit-admin-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-4 modal-enter">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h4 class="text-sm font-black text-slate-900">Editar Datos de Administrador</h4>
+        <button onclick="closeEditAdminModal()" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="edit-admin-form" class="space-y-3">
+        <input type="hidden" id="edit-adm-username">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Usuario (No modificable)</label>
+          <input type="text" id="edit-adm-user-display" disabled class="w-full bg-slate-100 text-xs text-slate-500 px-3.5 py-2.5 rounded-xl border border-slate-200 font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo *</label>
+          <input type="text" id="edit-adm-name" required class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Rol / Cargo *</label>
+          <select id="edit-adm-role" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            <option value="Super Administrador">Super Administrador</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Vendedor / Facturación">Vendedor / Facturación</option>
+            <option value="Soporte Técnico">Soporte Técnico</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Estado de Acceso *</label>
+          <select id="edit-adm-status" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-bold">
+            <option value="active">🟢 Activo (Puede ingresar al panel)</option>
+            <option value="inactive">🔴 Inactivo (Acceso bloqueado)</option>
+          </select>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="closeEditAdminModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+            Cancelar
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md">
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: EDITAR DATOS DE CLIENTE -->
+  <!-- ======================================================== -->
+  <div id="admin-edit-client-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-4 modal-enter max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h4 class="text-sm font-black text-slate-900">Editar Datos de Cliente</h4>
+        <button onclick="closeEditClientModal()" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="edit-client-form" class="space-y-3">
+        <input type="hidden" id="edit-client-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo *</label>
+          <input type="text" id="edit-client-name" required class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico *</label>
+            <input type="email" id="edit-client-email" required class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Teléfono (10 Dígitos) *</label>
+            <input type="tel" id="edit-client-phone" required maxlength="10" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Provincia</label>
+            <select id="edit-client-province" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+              <option value="Bolívar">Bolívar (Guaranda)</option>
+              <option value="Pichincha">Pichincha (Quito)</option>
+              <option value="Guayas">Guayas (Guayaquil)</option>
+              <option value="Azuay">Azuay (Cuenca)</option>
+              <option value="Tungurahua">Tungurahua (Ambato)</option>
+              <option value="Chimborazo">Chimborazo (Riobamba)</option>
+              <option value="Otra">Otra Provincia</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Ciudad</label>
+            <input type="text" id="edit-client-city" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Dirección de Entrega</label>
+          <input type="text" id="edit-client-address" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Estado de Cuenta *</label>
+          <select id="edit-client-status" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-bold">
+            <option value="active">🟢 Activo (Puede comprar e iniciar sesión)</option>
+            <option value="inactive">🔴 Inactivo (Cuenta suspendida)</option>
+          </select>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="closeEditClientModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+            Cancelar
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md">
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: CAMBIAR CONTRASEÑA DE MI CUENTA ADMIN -->
+  <!-- ======================================================== -->
+  <div id="admin-change-pass-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-4 modal-enter">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h4 class="text-sm font-black text-slate-900">Cambiar Mi Contraseña</h4>
+        <button id="close-change-pass-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="admin-change-pass-form" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Contraseña Actual *</label>
+          <input type="password" id="admin-cur-pass" required placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nueva Contraseña (Mín. 6 caracteres) *</label>
+          <input type="password" id="admin-new-pass" required minlength="6" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Confirmar Nueva Contraseña *</label>
+          <input type="password" id="admin-conf-pass" required minlength="6" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="document.getElementById('admin-change-pass-modal').classList.add('hidden')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+            Cancelar
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md">
+            Actualizar Clave
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: CAMBIAR CLAVE DE UN ADMINISTRADOR SELECCIONADO -->
+  <!-- ======================================================== -->
+  <div id="admin-change-user-pass-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-4 modal-enter">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h4 class="text-sm font-black text-slate-900">Cambiar Clave de Administrador</h4>
+          <span id="target-admin-display" class="text-xs font-mono font-bold text-blue-600">@admin</span>
+        </div>
+        <button id="close-change-user-pass-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="admin-change-user-pass-form" class="space-y-3">
+        <input type="hidden" id="target-admin-username">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nueva Contraseña (Mín. 6 caracteres) *</label>
+          <input type="password" id="target-admin-new-pass" required minlength="6" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Confirmar Nueva Contraseña *</label>
+          <input type="password" id="target-admin-conf-pass" required minlength="6" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="button" id="btn-cancel-target-admin-pass" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+            Cancelar
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md">
+            Guardar Nueva Clave
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: RESTABLECER CONTRASEÑA DE CLIENTE (POR ADMIN) -->
+  <!-- ======================================================== -->
+  <div id="admin-reset-client-pass-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-4 modal-enter">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h4 id="reset-client-title" class="text-sm font-black text-slate-900">Restablecer Clave de Cliente</h4>
+        <button id="close-reset-client-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="admin-reset-client-form" class="space-y-3">
+        <input type="hidden" id="reset-client-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nueva Contraseña para el Cliente *</label>
+          <input type="password" id="reset-client-pass" required minlength="8" placeholder="Mínimo 8 caracteres, 1 mayúscula, 1 número" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md mt-2">
+          Guardar Nueva Contraseña
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: VISOR DE COMPROBANTE DE TRANSFERENCIA -->
+  <!-- ======================================================== -->
+  <div id="receipt-viewer-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="receipt-modal-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 p-6 shadow-2xl z-10 space-y-4 modal-enter text-center">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h4 id="receipt-modal-title" class="text-sm font-black text-slate-900">Comprobante de Pago Adjunto</h4>
+        <button id="close-receipt-modal-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="max-h-[70vh] overflow-y-auto rounded-2xl bg-slate-50 border border-slate-200 p-2 flex items-center justify-center">
+        <img id="receipt-modal-img" src="" alt="Comprobante de Pago" class="max-w-full h-auto rounded-xl shadow-sm">
+      </div>
+
+      <button onclick="closeReceiptViewer()" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+        Cerrar Visor
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

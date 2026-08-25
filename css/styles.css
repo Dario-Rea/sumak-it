@@ -1,0 +1,215 @@
+/*
+  SUMAK TECH - Estilos Visuales (Modern Clean Light Tech Theme)
+  Razón Social: Mario Dario Rea Tamami | RUC: 020246352007
+  Guaranda, Bolívar, Ecuador
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --color-brand-cyan: #00C2FF;
+  --color-brand-blue: #0066FF;
+  --color-brand-dark: #0F172A;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FAFCFF;
+  color: #1E293B;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0066FF;
+}
+
+/* Subtle Animated Ambient Tech Pattern */
+.bg-tech-animated {
+  background-color: #FAFCFF;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 102, 255, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(0, 194, 255, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(0, 102, 255, 0.03) 0px, transparent 50%),
+    linear-gradient(to right, rgba(0, 102, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 102, 255, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+}
+
+/* Ambient Floating Glow Keyframe */
+@keyframes ambientFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, -15px) scale(1.05); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.ambient-orb {
+  animation: ambientFloat 12s ease-in-out infinite;
+}
+
+/* Modern Card Hover Effects */
+.tech-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.05);
+}
+.tech-card:hover {
+  transform: translateY(-4px);
+  border-color: #38BDF8;
+  box-shadow: 0 16px 32px -4px rgba(0, 102, 255, 0.12);
+}
+
+/* Floating contact buttons pulse */
+@keyframes pulse-ring-wa {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+@keyframes pulse-ring-msg {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.6);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 14px rgba(0, 132, 255, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 132, 255, 0);
+  }
+}
+
+.floating-wa-btn {
+  animation: pulse-ring-wa 2.5s infinite;
+}
+
+.floating-msg-btn {
+  animation: pulse-ring-msg 2.5s infinite;
+}
+
+/* Slider / Carousel Styles */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+}
+
+.slider-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+}
+
+.slider-dot {
+  transition: all 0.3s ease;
+}
+.slider-dot.active {
+  width: 2rem;
+  background-color: #0066FF;
+}
+
+/* Hide scrollbar for category tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth modal animations */
+.modal-enter {
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Drag & Drop / Paste Zone */
+.drop-paste-zone {
+  border: 2px dashed #93C5FD;
+  transition: all 0.2s ease;
+}
+.drop-paste-zone:hover, .drop-paste-zone.dragover {
+  border-color: #0066FF;
+  background-color: #EFF6FF;
+}
+
+/* Print Invoice Styling (PDF Export & Print) */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-invoice, #printable-invoice * {
+    visibility: visible;
+  }
+  #invoice-modal {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    z-index: 999999 !important;
+  }
+  #printable-invoice {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    padding: 24px !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+}

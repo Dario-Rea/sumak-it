@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUMAK IT | Tu aliado tecnológico, pensando en ti.</title>
+  <meta name="description" content="SUMAK IT - Laptops, monitores, impresoras, accesorios, servicio técnico especializado, desarrollo de software y capacitaciones profesionales en Guaranda, Bolívar, Ecuador.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00C2FF',
+              blue: '#0066FF',
+              dark: '#0F172A',
+              light: '#FAFCFF'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+</head>
+<body class="bg-tech-animated text-slate-800 antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- ======================================================== -->
+  <!-- 1. TOP ANNOUNCEMENT BAR -->
+  <!-- ======================================================== -->
+  <div class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white text-xs font-semibold py-2 px-4 border-b border-blue-500/20">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+        </span>
+        <span>🚚 <strong>Envíos a todo el Ecuador</strong> | Retiro directo en Guaranda</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-slate-300">
+        <span class="hidden md:inline">📞 Soporte & Ventas: <strong>0959736854</strong></span>
+        <span class="hidden sm:inline">•</span>
+        <span class="text-cyan-400 font-bold">✨ ¡Cupón 10% OFF: SUMAKIT!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. MAIN HEADER & NAVIGATION -->
+  <!-- ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Brand Logo & Slogan -->
+        <a href="#inicio" class="flex items-center gap-3.5 group flex-shrink-0">
+          <img src="assets/logo.jpg" alt="SUMAK IT Logo" class="h-14 sm:h-16 w-auto object-contain transition-transform group-hover:scale-105">
+          <div class="hidden sm:block">
+            <span class="text-xl font-black tracking-tight text-slate-900 block leading-tight">SUMAK IT</span>
+            <span class="text-[11px] font-bold text-blue-600 tracking-tight">Tu aliado tecnológico, pensando en ti.</span>
+          </div>
+        </a>
+
+        <!-- Large Search Bar -->
+        <div class="flex-1 max-w-xl mx-2 relative hidden md:block">
+          <div class="relative flex items-center">
+            <input 
+              type="text" 
+              id="global-search-input" 
+              placeholder="Buscar laptops, monitores, impresoras, SSD, accesorios..."
+              class="w-full bg-slate-50 text-xs text-slate-800 pl-11 pr-24 py-3 rounded-2xl border border-slate-200 outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all font-medium"
+            >
+            <svg class="w-5 h-5 text-slate-400 absolute left-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <button id="search-btn" class="absolute right-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition">
+              Buscar
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-6 text-[1rem] font-bold text-slate-700">
+          <a href="#inicio" class="hover:text-blue-600 transition">Inicio</a>
+          <a href="#catalogo" class="hover:text-blue-600 transition">Catálogo</a>
+          <a href="#servicios" class="hover:text-blue-600 transition">Servicios</a>
+          <a href="#capacitaciones" class="hover:text-blue-600 transition flex items-center gap-1">
+            <span>Capacitaciones</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-100 text-amber-800 font-extrabold">Nuevo</span>
+          </a>
+          <a href="#blog" class="hover:text-blue-600 transition">Blog</a>
+          <a href="#contacto" class="hover:text-blue-600 transition">Contacto</a>
+        </nav>
+
+        <!-- User & Cart Buttons -->
+        <div class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+          
+          <!-- Customer Account Button -->
+          <button id="user-nav-btn" class="flex items-center gap-2 px-3 py-2 rounded-2xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 text-slate-700 transition">
+            <div class="w-7 h-7 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+              👤
+            </div>
+            <span id="user-nav-text" class="text-xs font-bold hidden sm:inline">Iniciar Sesión</span>
+          </button>
+
+          <!-- Cart Drawer Trigger Button -->
+          <button id="open-cart-btn" class="relative p-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white transition shadow-lg shadow-blue-600/25 flex items-center gap-1.5" title="Ver Carrito">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span id="cart-total-badge" class="font-bold text-xs px-1.5 py-0.5 rounded-full bg-white text-blue-700">0</span>
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Mobile Search Bar (Visible on Small Screens) -->
+      <div class="pb-3 md:hidden">
+        <div class="relative flex items-center">
+          <input 
+            type="text" 
+            id="mobile-search-input" 
+            placeholder="Buscar laptops, pantallas, periféricos..."
+            class="w-full bg-slate-50 text-xs text-slate-800 pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600"
+          >
+          <svg class="w-4 h-4 text-slate-400 absolute left-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2 text-sm font-bold">
+      <a href="#inicio" class="block py-2 text-slate-700 hover:text-blue-600">Inicio</a>
+      <a href="#catalogo" class="block py-2 text-slate-700 hover:text-blue-600">Catálogo de Productos</a>
+      <a href="#servicios" class="block py-2 text-slate-700 hover:text-blue-600">Servicios Tecnológicos</a>
+      <a href="#capacitaciones" class="block py-2 text-slate-700 hover:text-blue-600 flex items-center justify-between">
+        <span>Capacitaciones & Cursos</span>
+        <span class="px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800 font-bold">Nuevo</span>
+      </a>
+      <a href="#blog" class="block py-2 text-slate-700 hover:text-blue-600">Blog de Tecnología</a>
+      <a href="#contacto" class="block py-2 text-slate-700 hover:text-blue-600">Contacto & Redes</a>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- 3. HERO SECTION & FEATURED PRODUCTS SLIDER -->
+  <!-- ======================================================== -->
+  <section id="inicio" class="relative overflow-hidden pt-6 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- HERO SLIDER -->
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 bg-white">
+        
+        <!-- Slider Container -->
+        <div id="hero-slider-track" class="relative w-full min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
+          <!-- Los slides destacados se inyectan dinámicamente desde app.js -->
+        </div>
+
+        <!-- Slider Controls -->
+        <button id="slider-prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-2xl bg-white/80 backdrop-blur-md hover:bg-white text-slate-800 flex items-center justify-center shadow-lg transition border border-slate-200 z-10">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+
+        <button id="slider-next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-2xl bg-white/80 backdrop-blur-md hover:bg-white text-slate-800 flex items-center justify-center shadow-lg transition border border-slate-200 z-10">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <!-- Slider Dots Indicators -->
+        <div id="slider-dots-container" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+          <!-- Dots generados dinámicamente -->
+        </div>
+
+      </div>
+
+      <!-- VALUE PROPS BANNER -->
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">🛡️</div>
+          <div>
+            <h4 class="text-xs font-black text-slate-900">Garantía Real</h4>
+            <p class="text-[11px] text-slate-500">100% oficial en Guaranda</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold text-lg">🚚</div>
+          <div>
+            <h4 class="text-xs font-black text-slate-900">Envíos Rápidos</h4>
+            <p class="text-[11px] text-slate-500">Servientrega a todo el país</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">🏦</div>
+          <div>
+            <h4 class="text-xs font-black text-slate-900">Pago Seguro</h4>
+            <p class="text-[11px] text-slate-500">Banco Pichincha: 2200807883</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">🎓</div>
+          <div>
+            <h4 class="text-xs font-black text-slate-900">Capacitaciones</h4>
+            <p class="text-[11px] text-slate-500">Cursos técnicos y ofimática</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 4. CATÁLOGO DE PRODUCTOS & FILTROS DINÁMICOS -->
+  <!-- ======================================================== -->
+  <section id="catalogo" class="py-12 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest">Catálogo de Equipos</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1" style="font-size: 1.75rem;">Tecnología de Alto Rendimiento</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Precios oficiales con IVA y entrega garantizada en Guaranda y todo el Ecuador.</p>
+        </div>
+
+        <!-- Sorting & Results Count -->
+        <div class="flex items-center gap-3">
+          <span id="products-count-badge" class="text-xs font-bold text-slate-500">Mostrando productos...</span>
+          <select id="sort-select" class="text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-blue-600">
+            <option value="featured">Destacados</option>
+            <option value="price-asc">Menor Precio</option>
+            <option value="price-desc">Mayor Precio</option>
+            <option value="name-asc">Nombre A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Categories Pills Filter Strip -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar" id="category-filter-strip">
+        <!-- Renderizado dinámicamente desde app.js -->
+      </div>
+
+      <!-- Products Grid -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Tarjetas de productos inyectadas dinámicamente -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 5. SERVICIOS TECNOLÓGICOS ESPECIALIZADOS -->
+  <!-- ======================================================== -->
+  <section id="servicios" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest">Soluciones Integrales</span>
+        <h2 class="text-3xl font-black text-slate-900" style="font-size: 1.75rem;">Servicios Tecnológicos Profesionales</h2>
+        <p class="text-xs sm:text-sm text-slate-500">Mantenimiento preventivo, soporte a empresas y desarrollo de software en Bolívar y Ecuador.</p>
+      </div>
+
+      <div id="services-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Renderizado dinámicamente desde app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 6. CAPACITACIONES & CURSOS [NUEVO MÓDULO] -->
+  <!-- ======================================================== -->
+  <section id="capacitaciones" class="py-16 bg-white border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-extrabold text-amber-600 uppercase tracking-widest">Formación Profesional</span>
+          <h2 class="text-3xl font-black text-slate-900 mt-1" style="font-size: 1.75rem;">Cursos y Capacitaciones Tecnológicas</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Aprende habilidades prácticas de alta demanda con instructores certificados en Guaranda y Online.</p>
+        </div>
+
+        <a href="https://wa.me/593959736854?text=Hola%20SUMAK%20IT,%20deseo%20información%20sobre%20las%20capacitaciones%20y%20cursos%20disponibles." target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs transition shadow-md shadow-amber-500/20 flex-shrink-0">
+          <span>💬 Consultar Cupos Disponibles</span>
+        </a>
+      </div>
+
+      <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Renderizado dinámicamente desde app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 7. BLOG DE TECNOLOGÍA [NUEVO MÓDULO] -->
+  <!-- ======================================================== -->
+  <section id="blog" class="py-16 bg-slate-50 border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest">Consejos & Novedades</span>
+        <h2 class="text-3xl font-black text-slate-900" style="font-size: 1.75rem;">Blog de Tecnología & Guías</h2>
+        <p class="text-xs sm:text-sm text-slate-500">Aprende a elegir tus equipos, cuidar tu computadora y optimizar tu rendimiento digital.</p>
+      </div>
+
+      <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Renderizado dinámicamente desde app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 8. CONTACTO & REDES SOCIALES -->
+  <!-- ======================================================== -->
+  <section id="contacto" class="py-16 bg-white border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        
+        <!-- Info & Social Networks (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div>
+            <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest">Ubícanos y Conecta</span>
+            <h2 class="text-3xl font-black text-slate-900 mt-1">Estamos en Guaranda</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Visítanos para asesoría técnica personalizada, cotizaciones o retiro de compras.</p>
+          </div>
+
+          <div class="space-y-4 text-xs font-medium text-slate-600">
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-xl">📍</span>
+              <div>
+                <strong class="text-slate-900 block">Ubicación Central:</strong>
+                <span>Guaranda, Provincia de Bolívar, Ecuador</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-xl">📞</span>
+              <div>
+                <strong class="text-slate-900 block">Teléfono / WhatsApp:</strong>
+                <a href="tel:0959736854" class="text-blue-600 hover:underline">0959736854 (593 959 736 854)</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-xl">✉️</span>
+              <div>
+                <strong class="text-slate-900 block">Correo Electrónico:</strong>
+                <a href="mailto:readario94@gmail.com" class="text-blue-600 hover:underline">readario94@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Redes Sociales Oficiales con Íconos -->
+          <div class="pt-2">
+            <h4 class="text-xs font-black text-slate-900 uppercase tracking-wider mb-3">Síguenos en Redes Sociales:</h4>
+            <div class="flex items-center gap-3">
+              
+              <!-- Facebook -->
+              <a href="https://www.facebook.com/profile.php?id=61593426244362" target="_blank" class="w-12 h-12 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110" title="Facebook SUMAK IT">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+
+              <!-- TikTok -->
+              <a href="https://www.tiktok.com/@sumaktech" target="_blank" class="w-12 h-12 rounded-2xl bg-slate-900 hover:bg-black text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110" title="TikTok @sumaktech">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.27 1.76-.23 1.03.14 2.15.89 2.85.74.72 1.83.99 2.83.74.96-.22 1.77-.92 2.08-1.87.21-.63.26-1.31.24-1.98.02-4.92.01-9.84.01-14.76z"/></svg>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/sumaktech" target="_blank" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110" title="Instagram @sumaktech">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+
+              <!-- WhatsApp Direct -->
+              <a href="https://wa.me/593959736854" target="_blank" class="w-12 h-12 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110" title="WhatsApp Asesor">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.148.567 4.167 1.558 5.918l-1.658 6.064 6.223-1.632c1.691.921 3.633 1.45 5.877 1.45 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/></svg>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Contact Message Form (7 Cols) -->
+        <div class="lg:col-span-7 bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div>
+            <h3 class="text-xl font-black text-slate-900">Envíanos un Mensaje Directo</h3>
+            <p class="text-xs text-slate-500">¿Deseas una cotización empresarial o información sobre capacitaciones?</p>
+          </div>
+
+          <form id="contact-form" class="space-y-3.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo *</label>
+                <input type="text" id="contact-name" required placeholder="Tu nombre" class="w-full bg-white text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Teléfono / WhatsApp *</label>
+                <input type="tel" id="contact-phone" required maxlength="10" placeholder="0959736854" class="w-full bg-white text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico *</label>
+                <input type="email" id="contact-email" required placeholder="tu.correo@gmail.com" class="w-full bg-white text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Asunto de Interés</label>
+                <select id="contact-subject" class="w-full bg-white text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-medium">
+                  <option value="Cotización de Equipos">Cotización de Laptops / Equipos</option>
+                  <option value="Soporte Técnico Hardware">Soporte Técnico & Mantenimiento</option>
+                  <option value="Capacitaciones y Cursos">Capacitaciones & Cursos</option>
+                  <option value="Desarrollo de Software">Desarrollo de Software / Facturación</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Mensaje o Detalle *</label>
+              <textarea id="contact-message" required rows="3" placeholder="Escribe aquí tu consulta o requerimiento..." class="w-full bg-white text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              <span>Enviar Consulta vía WhatsApp / Email</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 9. FOOTER CORPORATIVO OFICIAL -->
+  <!-- ======================================================== -->
+  <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 pt-12 pb-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Brand & Slogan -->
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center gap-3">
+            <img src="assets/logo.jpg" alt="SUMAK IT Logo" class="h-12 w-auto object-contain bg-white p-1 rounded-xl">
+            <div>
+              <span class="text-base font-black text-white block">SUMAK IT</span>
+              <span class="text-[10px] text-cyan-400 font-bold">Tu aliado tecnológico, pensando en ti.</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Especialistas en equipamiento tecnológico, soporte técnico certificado, capacitaciones prácticas y desarrollo de software en Guaranda, Ecuador.
+          </p>
+        </div>
+        <!-- Bank Payment Info -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-black text-white uppercase tracking-wider">Cuenta Bancaria Autorizada</h4>
+          <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-[11px] space-y-1">
+            <p class="text-white font-bold">🏦 Banco Pichincha</p>
+            <p>Cuenta de Ahorros: <strong class="text-cyan-400 font-mono">2200807883</strong></p>
+            <p>Titular: Mario Dario Rea Tamami</p>
+            <p class="text-[10px] text-slate-400">RUC: 0202463527</p>
+          </div>
+        </div>
+
+        <!-- Quick Links & Admin Access -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-black text-white uppercase tracking-wider">Accesos Directos</h4>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="#catalogo" class="hover:text-cyan-400 transition">Catálogo de Productos</a></li>
+            <li><a href="#servicios" class="hover:text-cyan-400 transition">Servicios Técnicos</a></li>
+            <li><a href="#capacitaciones" class="hover:text-cyan-400 transition">Capacitaciones & Cursos</a></li>
+            <li><a href="#blog" class="hover:text-cyan-400 transition">Blog de Tecnología</a></li>
+            <li class="pt-2">
+              <!-- Admin Access Link positioned discreetly in footer -->
+              <a href="admin.html" class="inline-flex items-center gap-1 text-slate-400 hover:text-cyan-400 font-bold transition">
+                <span>⚙️ Acceso Administrativo (Admin)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-slate-500">
+        <p>© 2026 <strong>SUMAK IT</strong> | Mario Dario Rea Tamami. Todos los derechos reservados.</p>
+        <p>Guaranda, Bolívar, Ecuador | Desarrollado con tecnología moderna.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- 10. FLOATING WHATSAPP BUTTON -->
+  <!-- ======================================================== -->
+  <a 
+    href="https://wa.me/593959736854?text=Hola%20SUMAK%20IT,%20deseo%20asesoría%20sobre%20sus%20productos%20y%20servicios." 
+    target="_blank" 
+    class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/40 transition-transform hover:scale-110 pulse-glow" 
+    title="Chatear por WhatsApp"
+  >
+    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.148.567 4.167 1.558 5.918l-1.658 6.064 6.223-1.632c1.691.921 3.633 1.45 5.877 1.45 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/></svg>
+  </a>
+
+  <!-- ======================================================== -->
+  <!-- 11. MODAL: AUTENTICACIÓN / REGISTRO / RECUPERACIÓN CLIENTE -->
+  <!-- ======================================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="auth-modal-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-6 modal-enter max-h-[90vh] overflow-y-auto">
+      
+      <!-- Modal Close Button -->
+      <button id="close-auth-modal-btn" class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Checkout notice -->
+      <div id="auth-checkout-notice" class="hidden p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-semibold flex items-center gap-2">
+        <span>🛒</span>
+        <span>Inicia sesión o regístrate para completar tu compra.</span>
+      </div>
+
+      <!-- Auth Tabs Header -->
+      <div id="auth-tabs-header" class="flex border-b border-slate-200 text-sm">
+        <button id="tab-login-btn" class="flex-1 py-3 font-bold border-b-2 border-blue-600 text-blue-600 transition">
+          Iniciar Sesión
+        </button>
+        <button id="tab-register-btn" class="flex-1 py-3 font-semibold text-slate-500 hover:text-slate-800 transition">
+          Crear Cuenta
+        </button>
+      </div>
+
+      <!-- FORM 1: LOGIN -->
+      <div id="login-form-container" class="space-y-4">
+        <form id="login-form" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico *</label>
+            <input type="email" id="login-email" required placeholder="tu.correo@gmail.com" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-bold text-slate-700">Contraseña *</label>
+              <a href="#" id="goto-forgot-pass-link" class="text-xs text-blue-600 hover:underline font-semibold">¿Olvidaste tu contraseña?</a>
+            </div>
+            <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25">
+            Iniciar Sesión
+          </button>
+        </form>
+
+        <div class="text-center pt-2">
+          <p class="text-xs text-slate-500">¿No tienes una cuenta? <a href="#" id="goto-register-link" class="text-blue-600 font-bold hover:underline">Regístrate gratis</a></p>
+        </div>
+      </div>
+
+      <!-- FORM 2: REGISTER -->
+      <div id="register-form-container" class="hidden space-y-4">
+        <form id="register-form" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo *</label>
+            <input type="text" id="reg-name" required placeholder="Ej. Juan Morales" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico *</label>
+              <input type="email" id="reg-email" required placeholder="usuario@gmail.com" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teléfono (10 Números) *</label>
+              <input type="tel" id="reg-phone" required maxlength="10" placeholder="0959736854" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Provincia</label>
+              <select id="reg-province" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+                <option value="Bolívar">Bolívar (Guaranda)</option>
+                <option value="Pichincha">Pichincha (Quito)</option>
+                <option value="Guayas">Guayas (Guayaquil)</option>
+                <option value="Azuay">Azuay (Cuenca)</option>
+                <option value="Tungurahua">Tungurahua (Ambato)</option>
+                <option value="Chimborazo">Chimborazo (Riobamba)</option>
+                <option value="Otra">Otra Provincia</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Ciudad</label>
+              <input type="text" id="reg-city" placeholder="Guaranda" value="Guaranda" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Dirección de Entrega</label>
+            <input type="text" id="reg-address" placeholder="Calles y referencia..." class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Contraseña Segura (Mín. 8 caracteres, 1 mayúscula, 1 número) *</label>
+            <input type="password" id="reg-password" required minlength="8" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25 mt-2">
+            Crear Mi Cuenta
+          </button>
+        </form>
+
+        <div class="text-center pt-2">
+          <p class="text-xs text-slate-500">¿Ya tienes cuenta? <a href="#" id="goto-login-link" class="text-blue-600 font-bold hover:underline">Inicia sesión</a></p>
+        </div>
+      </div>
+
+      <!-- FORM 3: FORGOT PASSWORD -->
+      <div id="forgot-form-container" class="hidden space-y-4">
+        <div>
+          <h4 class="text-sm font-black text-slate-900">Recuperar Mi Contraseña</h4>
+          <p class="text-xs text-slate-500 mt-0.5">Ingresa tu correo y número celular registrados para restablecer tu clave.</p>
+        </div>
+
+        <form id="forgot-form" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico Registrado *</label>
+            <input type="email" id="forgot-email" required placeholder="tu.correo@gmail.com" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Teléfono Registrado (10 Dígitos) *</label>
+            <input type="tel" id="forgot-phone" required maxlength="10" placeholder="0959736854" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nueva Contraseña (Mín. 8 caracteres, 1 mayúscula, 1 número) *</label>
+            <input type="password" id="forgot-new-pass" required minlength="8" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Confirmar Nueva Contraseña *</label>
+            <input type="password" id="forgot-conf-pass" required minlength="8" placeholder="••••••••" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25">
+            Restablecer Contraseña
+          </button>
+        </form>
+
+        <div class="text-center pt-2">
+          <a href="#" id="back-to-login-link" class="text-xs text-slate-500 hover:text-blue-600 font-bold">← Volver al Inicio de Sesión</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 12. MODAL: PERFIL DE CLIENTE & HISTORIAL DE COMPRAS -->
+  <!-- ======================================================== -->
+  <div id="user-profile-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="profile-modal-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-2xl bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-6 modal-enter max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md">
+            👤
+          </div>
+          <div>
+            <h3 id="profile-name" class="text-lg font-black text-slate-900">Mi Cuenta</h3>
+            <p id="profile-email" class="text-xs text-slate-500">usuario@gmail.com</p>
+          </div>
+        </div>
+
+        <button id="close-profile-modal-btn" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Customer Details Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+          <span class="text-slate-400 font-bold block">Teléfono / WhatsApp</span>
+          <span id="profile-phone" class="font-bold text-slate-800 mt-0.5 block">0959736854</span>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+          <span class="text-slate-400 font-bold block">Ciudad / Provincia</span>
+          <span id="profile-city" class="font-bold text-slate-800 mt-0.5 block">Guaranda, Bolívar</span>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+          <span class="text-slate-400 font-bold block">Dirección de Entrega</span>
+          <span id="profile-address" class="font-bold text-slate-800 mt-0.5 block truncate">Av. Principal</span>
+        </div>
+      </div>
+
+      <!-- Orders & Invoices History -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+          <span>📦</span>
+          <span>Historial de Compras y Facturas</span>
+        </h4>
+        <div id="user-orders-list" class="space-y-3">
+          <!-- Renderizado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Change password form -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+        <h4 class="text-xs font-black text-slate-900 uppercase">Cambiar Mi Contraseña</h4>
+        <form id="user-change-pass-form" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <input type="password" id="user-current-pass" required placeholder="Contraseña actual" class="bg-white text-xs text-slate-800 px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          <input type="password" id="user-new-pass" required minlength="8" placeholder="Nueva clave (Mín 8 car.)" class="bg-white text-xs text-slate-800 px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          <div class="sm:col-span-2 flex justify-end">
+            <button type="submit" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-black text-white text-xs font-bold transition">
+              Actualizar Clave
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Logout Button -->
+      <div class="flex justify-end pt-2 border-t border-slate-100">
+        <button id="profile-logout-btn" class="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs transition border border-rose-200">
+          Cerrar Sesión
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 13. DRAWER: CARRITO DE COMPRAS -->
+  <!-- ======================================================== -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+    <div id="cart-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+    
+    <div class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col z-10">
+      
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <h3 class="text-base font-black text-slate-900">Carrito de Compras</h3>
+        </div>
+        <button id="close-cart-btn" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cart-items-list" class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- Renderizado dinámicamente -->
+      </div>
+
+      <!-- Cart Footer & Checkout -->
+      <div class="p-5 border-t border-slate-200 bg-slate-50 space-y-3.5">
+        
+        <!-- Coupon input -->
+        <div class="flex gap-2">
+          <input type="text" id="coupon-input" placeholder="Código de cupón..." class="flex-1 bg-white text-xs uppercase text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono font-bold">
+          <button id="apply-coupon-btn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-black text-white font-bold text-xs transition">
+            Aplicar
+          </button>
+        </div>
+
+        <!-- Price breakdown -->
+        <div class="space-y-1.5 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Subtotal:</span>
+            <span id="cart-subtotal-val" class="font-bold text-slate-800">$0.00</span>
+          </div>
+          <div id="cart-discount-row" class="hidden flex justify-between text-emerald-600 font-bold">
+            <span>Descuento aplicado:</span>
+            <span id="cart-discount-val">-$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Envío (Guaranda gratis / Nacional $5):</span>
+            <span id="cart-shipping-val" class="font-bold text-slate-800">$0.00</span>
+          </div>
+          <div class="flex justify-between text-base font-black text-slate-900 pt-2 border-t border-slate-200">
+            <span>Total a Pagar:</span>
+            <span id="cart-total-val" class="text-blue-600 font-black">$0.00 USD</span>
+          </div>
+        </div>
+
+        <button id="btn-proceed-checkout" class="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2">
+          <span>Continuar con el Pago</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 14. MODAL: CHECKOUT & PAGO BANCO PICHINCHA -->
+  <!-- ======================================================== -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="checkout-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-xl bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-6 modal-enter max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-lg font-black text-slate-900">Finalizar Compra</h3>
+        <button id="close-checkout-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="checkout-form" class="space-y-4">
+        
+        <!-- Customer details -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-black text-slate-900 uppercase">1. Datos de Entrega y Facturación</h4>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Completo *</label>
+              <input type="text" id="checkout-name" required class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teléfono (10 Números) *</label>
+              <input type="tel" id="checkout-phone" required maxlength="10" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600 font-mono">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Provincia</label>
+              <select id="checkout-province" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+                <option value="Bolívar">Bolívar (Guaranda)</option>
+                <option value="Pichincha">Pichincha (Quito)</option>
+                <option value="Guayas">Guayas (Guayaquil)</option>
+                <option value="Azuay">Azuay (Cuenca)</option>
+                <option value="Tungurahua">Tungurahua (Ambato)</option>
+                <option value="Chimborazo">Chimborazo (Riobamba)</option>
+                <option value="Otra">Otra Provincia</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Ciudad *</label>
+              <input type="text" id="checkout-city" required value="Guaranda" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Dirección de Entrega Exacta *</label>
+            <input type="text" id="checkout-address" required placeholder="Calles y número de casa / referencia" class="w-full bg-slate-50 text-xs text-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-blue-600">
+          </div>
+        </div>
+
+        <!-- Single Bank Account Info -->
+        <div class="space-y-3 pt-2 border-t border-slate-100">
+          <h4 class="text-xs font-black text-slate-900 uppercase">2. Pago Exclusivo por Transferencia Bancaria</h4>
+          
+          <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-900 space-y-1.5">
+            <div class="flex items-center justify-between font-bold">
+              <span>🏦 Banco Pichincha</span>
+              <span class="px-2 py-0.5 rounded bg-blue-200 text-blue-800 text-[10px]">Cuenta de Ahorros</span>
+            </div>
+            <p>Número de Cuenta: <strong class="font-mono text-sm text-blue-700 font-black">2200807883</strong></p>
+            <p>Titular: <strong>Mario Dario Rea Tamami</strong> | RUC: <strong>020246352007</strong></p>
+            <p>Correo de notificación: <strong>readario94@gmail.com</strong></p>
+          </div>
+
+          <!-- Upload Receipt Image / Paste -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Adjuntar Comprobante de Transferencia (Foto o Captura) *</label>
+            <input type="file" id="checkout-receipt-file" accept="image/*" class="w-full bg-slate-50 text-xs text-slate-800 px-3 py-2 rounded-xl border border-slate-200">
+            <input type="hidden" id="checkout-receipt-base64">
+          </div>
+        </div>
+
+        <!-- Total summary -->
+        <div class="p-4 rounded-2xl bg-slate-900 text-white flex justify-between items-center">
+          <div>
+            <span class="text-xs text-slate-400 block">Total a Pagar:</span>
+            <span id="checkout-total-display" class="text-xl font-black text-cyan-400">$0.00 USD</span>
+          </div>
+          <button type="submit" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg">
+            Confirmar y Emitir Factura
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 15. MODAL: FACTURA OFICIAL SRI EN PDF (CLIENTE & ADMIN) -->
+  <!-- ======================================================== -->
+  <div id="invoice-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="invoice-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-3xl bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-6 modal-enter max-h-[90vh] overflow-y-auto">
+      
+      <!-- Printable Invoice Area -->
+      <div id="printable-invoice" class="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-6">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b-2 border-blue-600 pb-4">
+          <div class="flex items-center gap-3">
+            <img src="assets/logo.jpg" alt="SUMAK IT Logo" class="h-14 w-auto object-contain bg-white p-1 rounded-xl border">
+            <div>
+              <h3 class="text-xl font-black text-blue-600">SUMAK IT</h3>
+              <p class="font-bold text-slate-800">Mario Dario Rea Tamami</p>
+              <p class="text-[11px] font-mono text-slate-600">RUC: <strong>020246352007</strong></p>
+              <p class="text-[10px] text-slate-500">Guaranda, Bolívar, Ecuador | 0959736854 | readario94@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="text-right p-3 rounded-xl bg-blue-50 border border-blue-200">
+            <span class="text-[10px] font-extrabold text-blue-600 uppercase block">Factura Oficial de Venta</span>
+            <span id="inv-number" class="text-base font-black text-slate-900 block mt-0.5">FAC-001-000101</span>
+            <span id="inv-date" class="text-[11px] text-slate-500">Fecha: 24/08/2026</span>
+          </div>
+        </div>
+
+        <!-- Customer & Order details -->
+        <div class="grid grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-slate-200">
+          <div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase block">Facturado a:</span>
+            <strong id="inv-customer-name" class="text-xs text-slate-900 block mt-0.5">Juan Morales</strong>
+            <span id="inv-customer-email" class="text-[11px] text-slate-600 block">juan.morales@gmail.com</span>
+            <span id="inv-customer-phone" class="text-[11px] text-slate-600 block">📞 0987654321</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase block">Dirección de Entrega:</span>
+            <span id="inv-customer-address" class="text-[11px] text-slate-800 block mt-0.5 font-medium">Av. Principal</span>
+            <span id="inv-payment-method" class="text-[11px] text-blue-600 block font-bold mt-1">Pago: Banco Pichincha (2200807883)</span>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px]">
+                <th class="py-2">Cant.</th>
+                <th class="py-2">Descripción del Artículo</th>
+                <th class="py-2 text-right">P. Unitario</th>
+                <th class="py-2 text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="inv-items-body" class="divide-y divide-slate-100">
+              <!-- Renderizado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Totals & Legal notes -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-slate-200">
+          <div class="text-[10px] text-slate-500 max-w-sm space-y-1">
+            <p>• Razón Social: <strong>Mario Dario Rea Tamami</strong> | RUC: <strong>020246352007</strong></p>
+            <p>• Cuenta Autorizada: <strong>Banco Pichincha (2200807883)</strong></p>
+            <p>• Documento oficial de garantía en SUMAK IT Guaranda, Ecuador.</p>
+          </div>
+
+          <div class="w-64 space-y-1 text-right bg-white p-3 rounded-xl border border-slate-200">
+            <div class="flex justify-between">
+              <span>Subtotal:</span>
+              <span id="inv-subtotal" class="font-bold text-slate-800">$0.00</span>
+            </div>
+            <div id="inv-discount-row" class="hidden flex justify-between text-emerald-600 font-bold">
+              <span>Descuento:</span>
+              <span id="inv-discount">-$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Envío:</span>
+              <span id="inv-shipping" class="font-bold text-slate-800">$0.00</span>
+            </div>
+            <div class="flex justify-between text-sm font-black text-slate-900 pt-1 border-t border-slate-200">
+              <span>Total Pagado:</span>
+              <span id="inv-total" class="text-blue-600 font-black">$0.00 USD</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
+        <button onclick="document.getElementById('invoice-modal').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+          Cerrar
+        </button>
+        <button id="btn-print-invoice" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-md flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          <span>Descargar / Imprimir Factura PDF</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 16. MODAL: DETALLE DEL PRODUCTO (MULTI-FOTO SLIDER) -->
+  <!-- ======================================================== -->
+  <div id="product-detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="product-detail-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-4xl bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-6 modal-enter max-h-[90vh] overflow-y-auto">
+      
+      <button id="close-detail-modal-btn" class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        
+        <!-- Left: Image Gallery -->
+        <div class="space-y-4">
+          <div class="relative aspect-[4/3] rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden flex items-center justify-center p-4">
+            <img id="detail-main-img" src="" alt="Producto" class="w-full h-full object-contain">
+          </div>
+          <!-- Thumbnails Strip -->
+          <div id="detail-thumbnails-strip" class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <!-- Miniaturas inyectadas dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Right: Details, Specs, Add to Cart -->
+        <div class="space-y-4">
+          <div>
+            <span id="detail-category" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">Laptops</span>
+            <h3 id="detail-name" class="text-xl sm:text-2xl font-black text-slate-900 mt-2">Nombre del Producto</h3>
+            <div class="flex items-center gap-3 mt-2">
+              <span id="detail-price" class="text-2xl font-black text-blue-600">$0.00 USD</span>
+              <span id="detail-stock" class="text-xs font-bold text-emerald-600 px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200">Stock Disponible</span>
+            </div>
+          </div>
+
+          <p id="detail-short-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
+
+          <!-- Specifications list -->
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <h4 class="text-xs font-black text-slate-900 uppercase">Especificaciones Técnicas:</h4>
+            <ul id="detail-specs-list" class="space-y-1.5 text-xs text-slate-600">
+              <!-- Specs inyectadas -->
+            </ul>
+          </div>
+
+          <!-- Add to Cart & WhatsApp Buy Buttons -->
+          <div class="pt-4 flex flex-col sm:flex-row gap-3">
+            <button id="detail-add-cart-btn" class="flex-1 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span>Agregar al Carrito</span>
+            </button>
+            <a id="detail-whatsapp-btn" href="#" target="_blank" class="py-3.5 px-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+              <span>Consultar en WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 17. MODAL: LECTOR DE ARTÍCULO DEL BLOG -->
+  <!-- ======================================================== -->
+  <div id="blog-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="blog-modal-backdrop" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md"></div>
+    
+    <div class="relative w-full max-w-2xl bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-2xl z-10 space-y-6 modal-enter max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="document.getElementById('blog-modal').classList.add('hidden')" class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span id="blog-modal-cat" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">Tecnología</span>
+          <span id="blog-modal-date" class="text-xs text-slate-400 font-semibold">• 24 de Agosto, 2026</span>
+        </div>
+
+        <h2 id="blog-modal-title" class="text-xl sm:text-2xl font-black text-slate-900 leading-snug">Título del Artículo</h2>
+
+        <div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100">
+          <img id="blog-modal-img" src="" alt="Artículo" class="w-full h-full object-cover">
+        </div>
+
+        <div id="blog-modal-content" class="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line space-y-3">
+          <!-- Contenido inyectado -->
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
+          <span>Autor: <strong id="blog-modal-author" class="text-slate-800">Mario Dario Rea Tamami (SUMAK IT)</strong></span>
+          <a href="https://wa.me/593959736854" target="_blank" class="font-bold text-blue-600 hover:underline">¿Dudas? Escríbenos</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
